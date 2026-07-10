@@ -27,7 +27,12 @@ function App() {
   if (page === 'lumipay' && selectedPlan) {
     return (
       <LanguageProvider>
-        <LumiPayPage plan={selectedPlan} />
+        <LumiPayPage plan={selectedPlan} onBack={() => {
+          setPage('home');
+          setTimeout(() => {
+            document.getElementById('plans-section')?.scrollIntoView({ behavior: 'smooth' });
+          }, 50);
+        }} />
       </LanguageProvider>
     );
   }
