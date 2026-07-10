@@ -19,15 +19,6 @@ function App() {
     window.scrollTo({ top: 0 });
   };
 
-  const goHome = () => {
-    setPage('home');
-    setSelectedPlan(null);
-    setTimeout(() => {
-      const el = document.getElementById('plans');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
-  };
-
   // Scroll to top when entering LumiPay
   useEffect(() => {
     if (page === 'lumipay') window.scrollTo({ top: 0 });
@@ -36,7 +27,7 @@ function App() {
   if (page === 'lumipay' && selectedPlan) {
     return (
       <LanguageProvider>
-        <LumiPayPage plan={selectedPlan} onBack={goHome} />
+        <LumiPayPage plan={selectedPlan} />
       </LanguageProvider>
     );
   }
