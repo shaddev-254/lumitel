@@ -11,7 +11,6 @@ import { LANGUAGES, Language } from '../i18n/translations';
 
 interface Props {
   plan: Plan;
-  onBack: () => void;
 }
 
 const OTP_LENGTH = 6;
@@ -146,7 +145,7 @@ function OtpBox({ value, onChange, onKeyDown, inputRef, hasError }: {
 }
 
 /* ─── Main page ─── */
-export default function LumiPayPage({ plan, onBack }: Props) {
+export default function LumiPayPage({ plan }: Props) {
   const { t } = useLanguage();
   const [step, setStep]           = useState<'phone' | 'otp'>('phone');
   const [localNumber, setLocalNumber] = useState('');
@@ -293,13 +292,15 @@ export default function LumiPayPage({ plan, onBack }: Props) {
 
         {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-4 pt-4">
-          {step === 'otp'
-            ? <button onClick={() => { setStep('phone'); setError(''); setOtp(Array(OTP_LENGTH).fill('')); setOtpExpired(false); }}
-                className="w-9 h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm transition-colors">
-                <ArrowLeft size={17} className="text-gray-700" />
-              </button>
-            : <div className="w-9" />
-          }
+          <button
+            onClick={() => {
+              if (step === 'otp') { setStep('phone'); setError(''); setOtp(Array(OTP_LENGTH).fill('')); setOtpExpired(false); }
+              else { onBack(); }
+            }}
+            className="w-9 h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-sm transition-colors"
+          >
+            <ArrowLeft size={17} className="text-gray-700" />
+          </button>
           <LangPill />
         </div>
 
@@ -368,14 +369,6 @@ export default function LumiPayPage({ plan, onBack }: Props) {
             >
               {loading && <Loader2 size={17} className="animate-spin" style={{ color: '#FDE047' }} />}
               {t('lumi.loginBtn')}
-            </button>
-
-            {/* Lumicare button */}
-            <button
-              onClick={onBack}
-              className="w-full border border-gray-300 hover:border-gray-400 text-gray-800 font-bold text-[14px] py-3.5 rounded-xl transition-colors mb-3"
-            >
-              {t('lumi.lumicareBtn')}
             </button>
 
             {/* Terms */}
