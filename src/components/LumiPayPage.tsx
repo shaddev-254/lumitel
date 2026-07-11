@@ -341,7 +341,7 @@ export default function LumiPayPage({ plan, onBack }: Props) {
               value={pin}
               onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
               className="flex-1 bg-transparent outline-none text-gray-900 text-[15px] placeholder:text-gray-400 tracking-widest"
-              maxLength={6}
+              maxLength={4}
               onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
             />
             <span className="text-gray-300 text-[11px] font-medium ml-2">{pin.length}/4</span>
